@@ -233,6 +233,25 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\header.jpg" />
+    <Content Include="Content\images\image-01.jpg" />
+    <Content Include="Content\images\image-02.jpg" />
+    <Content Include="Content\images\image-03.jpg" />
+    <Content Include="Content\images\pic01.jpg" />
+    <Content Include="Content\images\pic02.jpg" />
+    <Content Include="Content\images\pic03.jpg" />
+    <Content Include="Content\images\pic04.jpg" />
+    <Content Include="Content\images\pic05.jpg" />
+    <Content Include="Content\images\pic06.jpg" />
+    <Content Include="Content\images\pic07.jpg" />
+    <Content Include="Content\images\pic08.jpg" />
+    <Content Include="Content\images\pic09.jpg" />
+    <Content Include="Content\images\pic10.jpg" />
+    <Content Include="Content\images\pic11.jpg" />
+    <Content Include="Content\images\pic12.jpg" />
+    <Content Include="Content\images\pic13.jpg" />
+    <Content Include="Content\images\pic14.jpg" />
+    <Content Include="Content\images\pic15.jpg" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -260,6 +279,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sweetalert2.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\trux\services\base.service.js" />
+    <Content Include="Scripts\trux\services\systemEvent.service.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -300,12 +323,14 @@
     <Content Include="Views\Wish\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Scripts\trux\services\alert.service.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Requests\" />
     <Folder Include="Models\Responses\" />
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Scripts\trux\core\controllers\" />
     <Folder Include="Views\WishList\" />
   </ItemGroup>
   <ItemGroup>

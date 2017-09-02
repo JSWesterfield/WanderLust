@@ -2,6 +2,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section styles {
+<style type="text/css">
+.body-content {
+    background-image: url('https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=0ahUKEwjigITalIfWAhWng1QKHQSNASkQjBwIBA&url=https%3A%2F%2Fmomentumdash.com%2Fblog%2Fimages%2Fbackground-and-quote-sync.jpg&psig=AFQjCNHagq0hG-yH7nN1el0xq34kJ7WfDg&ust=1504464372491596');
+}
+
+button {
+    color: white;
+    text-align: center;
+    background-color: #00e1ff;
+    box-shadow: 2.5px 2.5px 1.5px #888888;
+    position: relative;
+    margin: 0 auto;
+    letter-spacing: 4px;
+    margin-left: 45%;
+    
+}
+
+div.form-container {
+    background-color: red;
+    background-image: url('https://i.pinimg.com/736x/56/20/36/56203618eb0123d1a04b9b640d2195cd--travel-abroad-travel-bug.jpg');
+    border: 0.5px solid black;
+}
+
+form {
+    height: 675px;
+}
+</style>
+}
+
 <article class="article gradient-2">
     <h2 class="title container text-center">Welcome to WanderLust</h2>
     <section class="form-section text-center">
@@ -20,7 +50,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.userId.$invalid && main.wishForm.$submitted}">
                                     <label class="sr-only" for="userId">User Id:</label>
 
-                                    <input required ng-model="main.userId" type="text" name="userId" class="form-control" placeholder="User Id" autofocus>
+                                    <input required ng-model="main.userId" type="text" name="userId" @*class="form-control"*@ placeholder="User Id" autofocus>
                                         <p ng-show="main.wishForm.userId.$error.required && main.wishForm.$submitted" class="help-block">User Id is required</p>
                                 </div>
 
@@ -28,7 +58,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishLocation.$invalid && main.wishForm.$submitted}">
                                     <label class="sr-only" for="wishLocation">Wish Location:</label>
 
-                                    <input required ng-model="main.wishLocation" type="text" name="wishLocation" class="form-control" placeholder="Wish Title">
+                                    <input required ng-model="main.wishLocation" type="text" name="wishLocation" @*class="form-control"*@ placeholder="Wish Title">
                                         <p ng-show="main.wishForm.wishLocation.$error.required && main.wishForm.$submitted" class="help-block">Wish Location is required</p>
                                 </div>
 
@@ -36,7 +66,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishActivity.$invalid && main.wishForm.$submitted}">
                                     <label class="sr-only" for="wishActivity">Wish Activity:</label>
 
-                                    <input required ng-model="main.wishActivity" type="text" name="wishActivity" class="form-control" placeholder="Wish Activity">
+                                    <input required ng-model="main.wishActivity" type="text" name="wishActivity" @*class="form-control"*@ placeholder="Wish Activity">
                                         <p ng-show="main.wishForm.wishActivity.$error.required && main.wishForm.$submitted" class="help-block">User Activity is required</p>
                                 </div>
 
@@ -44,13 +74,13 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishImageUrl.$invalid && main.wishForm.$submitted}">
                                     <label class="sr-only" for="wishImageUrl">Wish Image:</label>
 
-                                    <input required ng-model="main.wishImageUrl" type="text" name="wishImageUrl" class="form-control" placeholder="Wish Image URL">
+                                    <input required ng-model="main.wishImageUrl" type="text" name="wishImageUrl" placeholder="Wish Image URL">
                                         <p ng-show="main.wishForm.wishImageUrl.$error.required && main.wishForm.$submitted" class="help-block">An URL for your image is required.</p>
                                     
                                 </div>
 
                                 <!-- SUBMIT BUTTON -->
-                                <div class="col-md-6 col-sm-6 col-xs-6 form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6 form-group" id="createButton">
                                     <!--Submit button will only work when wishForm's validation is satisfied, or when all inputs that have required condition inside them is met, ng-disabled directive disables the submit button until wishForm is valid as an added precaution-->
                                     <button ng-click="main.submitwishForm(main.wishForm.$valid)" type="submit" class="btn btn-block btn-cta btn-cta-primary">Submit Your Wish</button>
                                 </div>

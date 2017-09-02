@@ -177,3 +177,4 @@ C:\WanderLust\WanderLustApplication\WebApplication1\bin\Microsoft.Owin.Security.
 C:\WanderLust\WanderLustApplication\WebApplication1\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\WanderLust\WanderLustApplication\WebApplication1\obj\Debug\WebApplication1.dll
 C:\WanderLust\WanderLustApplication\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\WanderLust\WanderLustApplication\WebApplication1\obj\Debug\WanderLust.Web.csprojResolveAssemblyReference.cache
