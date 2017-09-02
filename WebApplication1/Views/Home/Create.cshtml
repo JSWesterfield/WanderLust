@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "Create Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,30 +18,35 @@
 
                                 <!-- Wish UserId -->
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.userId.$invalid && main.wishForm.$submitted}">
-                                        User Id:
-                                        <input required ng-model="main.userId" type="text" name="UserId" class="form-control" placeholder="User Id" autofocus>
-                                            <p ng-show="main.wishForm.userId.$error.required && main.wishForm.$submitted" class="help-block">UserId is required</p>
+                                    <label class="sr-only" for="userId">User Id:</label>
+
+                                    <input required ng-model="main.userId" type="text" name="userId" class="form-control" placeholder="User Id" autofocus>
+                                        <p ng-show="main.wishForm.userId.$error.required && main.wishForm.$submitted" class="help-block">User Id is required</p>
                                 </div>
 
                                 <!-- Wish Location -->
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishLocation.$invalid && main.wishForm.$submitted}">
-                                        Wish Location:
-                                        <input required ng-model="main.wishLocation" type="text" name="wishLocation" class="form-control" placeholder="Wish Title">
-                                            <p ng-show="main.wishForm.wishLocation.$error.required && main.wishForm.$submitted" class="help-block">Wish Location is required</p>
+                                    <label class="sr-only" for="wishLocation">Wish Location:</label>
+
+                                    <input required ng-model="main.wishLocation" type="text" name="wishLocation" class="form-control" placeholder="Wish Title">
+                                        <p ng-show="main.wishForm.wishLocation.$error.required && main.wishForm.$submitted" class="help-block">Wish Location is required</p>
                                 </div>
 
                                 <!-- wish Activity-->
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishActivity.$invalid && main.wishForm.$submitted}">
-                                        Wish Activity:
-                                        <input required ng-model="main.wishActivity" type="text" name="wishActivity" class="form-control" placeholder="Wish Activity">
-                                            <p ng-show="main.wishForm.wishActivity.$error.required && main.wishForm.$submitted" class="help-block">User Activity is required</p>
+                                    <label class="sr-only" for="wishActivity">Wish Activity:</label>
+
+                                    <input required ng-model="main.wishActivity" type="text" name="wishActivity" class="form-control" placeholder="Wish Activity">
+                                        <p ng-show="main.wishForm.wishActivity.$error.required && main.wishForm.$submitted" class="help-block">User Activity is required</p>
                                 </div>
 
-                                <!-- wish ImageURL-->
+                                <!-- wish ImageURL--> <!--Added the input INSIDE the label, look for what changes look like under wifi-->
                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishImageUrl.$invalid && main.wishForm.$submitted}">
-                                        Wish Image:
-                                        <input required ng-model="main.wishImageUrl" type="text" name="wishImageUrl" class="form-control" placeholder="Wish Image URL">
-                                            <p ng-show="main.wishForm.wishImageUrl.$error.required && main.wishForm.$submitted" class="help-block">An URL for your image is required.</p>
+                                    <label class="sr-only" for="wishImageUrl">Wish Image:</label>
+
+                                    <input required ng-model="main.wishImageUrl" type="text" name="wishImageUrl" class="form-control" placeholder="Wish Image URL">
+                                        <p ng-show="main.wishForm.wishImageUrl.$error.required && main.wishForm.$submitted" class="help-block">An URL for your image is required.</p>
+                                    
                                 </div>
 
                                 <!-- SUBMIT BUTTON -->
@@ -61,11 +65,13 @@
 
 @section scripts
 {
+    <script src="~/Scripts/trux/services/trux.services.uploads.js"></script>
+    <script src="~/Scripts/trux/services/trux.services.wishes.js"></script>
     <script type="text/javascript">
         (function () {
             "use strict";
 
-            angular.module(wanderLustApp)      //APPNAME replaced with wanderLustApp
+            angular.module(APPNAME)      //APPNAME replaced with wanderLustApp
                 .controller('mainController', MainController);
 
             MainController.$inject = ['$scope', '$baseController', 'notificationsService', 'wishesService', 'appConfig'];
@@ -226,13 +232,10 @@
                     vm.$log.log(response.item);
 
                     //POPULATE FORM
-                    vm.wishTitle = response.item.Title;
-                    vm.wishArtistId = response.item.ArtistId;
+                    vm.wishUserId= response.item.wishUserId;
+                    vm.wishLocation = response.item.wishLocation;
                     vm.wishActivity = response.item.Activity;
-                    vm.wishClue = response.item.Clue;
-                    vm.wishPointValue = response.item.PointValue;
-                    vm.wishFunFact = response.item.FunFact;
-                    vm.wishReadMore = response.item.ReadMore;
+
                     vm.wishImageUrl = response.item.ImageUrl;
                     vm.$log.log("Got wish info");
 

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE HTML>
 <!--ORIGINAL ASP.NET Application Example-->
-<html ng-app="wanderLustApp">
+<html ng-app="APPNAME">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -39,7 +39,6 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Create Wish", "Create", "Create Wish", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Blog", "Index", "Blog", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Contact", "Index", "Contact", new { area = "" }, null)</li>
                     <li><a href="#">Login In</a></li>
                 </ul>
@@ -50,7 +49,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - WanderLust Application</p>
         </footer>
     </div>
 
