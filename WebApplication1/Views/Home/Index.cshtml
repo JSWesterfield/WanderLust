@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    @*<link rel="stylesheet" href="..."/>*@
+
+    @*<style></style>*@
+}
+
+<article class="article gradient-2">
+    <h2 class="title container text-center">Wishes</h2>
+    <section id="contact-methods" class="contact-methods text-center">
+        <div class="contact-methods-inner container">
+            <div class="col-md-10 col-sm-12 col-xs-12 col-md-push-1 col-sm-push-0 col-xs-push-0">
+                <div class="pull-right" style="padding: 10px 0px">
+                    <a href="/wishes/create" class="btnEdit btn-block btn-cta btn-cta-primary" role="button">Create New Wish</a>
+                </div>
+            </div>
+        </div>
+        <div class="contact-methods-inner container">
+            <div class="row wishTemplateLanding">
+            </div>
+        </div>
+    </section>
+</article>
+
+@section scripts {
+
+    @*<script src="~/Scripts/stark/services/stark.services.wishes.js"></script>*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script type="text/template" id="wishTemplate">
+        <div class="general item col-md-5 col-sm-6 col-xs-12 col-md-push-1 col-sm-push-0">
+            <div class="item-inner">
+                <h2 class="subtitle name"></h2>
+                <ul class="list-unstyled">
+                    <li class="id">Id: </li>
+                    <li class="userId">UserId: </li>
+                    <li class="location">Location: </li>
+                    <li class="imageUrl">Image: </li>
+                    <li class="dateCreated">Date Created: </li>
+                    <li class="dateModified">Date Modified: </li>
+                </ul>
+                <button type="submit" class="removeWish btn btn-block btn-cta btn-cta-primary">Remove Artist</button>
+                <a href="" class="editWish btn btn-block btn-cta btn-cta-primary" role="button">Edit Artist</a>
+            </div>
+        </div>
+    </script>
+    <script>
+        stark.page.startUp = function () {
+            console.log("page startup");
+            stark.services.wishes.getAllwishes(stark.page.handlers.ajaxGetAllwishesSuccess, stark.page.handlers.ajaxError);
+            $(".wishTemplateLanding").on("click", ".removeWish", stark.page.handlers.deleteWish);
+        };
+
+        stark.page.handlers.ajaxGetAllwishesSuccess = function (response) {
+            var allwishes = response.items;
+
+            for (var i = 0; i < allwishes.length; i++) {
+
+                var $wishes = $($("#wishTemplate").html());
+                var currentWish = allwishes[i];
+
+                $wishes.find(".name").append(currentWish.name);
+                $wishes.find(".id").append(currentWish.id);
+                $wishes.find(".dateOfBirth").append(moment(currentWish.dateOfBirth).format('YYYY-MM-DD'));
+
+                if (currentWish.dateOfDeath === null) {
+                    $wishes.find(".dateOfDeath").append("N/A");
+                }
+                else {
+                    $wishes.find(".dateOfDeath").append(moment(currentWish.dateOfDeath).format('YYYY-MM-DD'));
+                };
+
+                $wishes.find(".locale").append(currentWish.locale);
+                $wishes.find(".blurb").append(currentWish.blurb);
+                $wishes.find(".general").data("wishId", currentWish.id);
+                $wishes.find(".item-inner").closest(".general").data("wishId", currentWish.id);
+                $wishes.find(".item-inner").closest(".general").attr("Id", currentWish.id);
+                $wishes.find(".editWish").attr("href", "/admin/wishes/" + currentWish.id + "/edit");
+
+                $(".wishTemplateLanding").append($wishes);
+            };
+        };
+
+        stark.page.handlers.ajaxError = function () {
+            console.log("Ajax call failed");
+        };
+        s
+        stark.page.handlers.ajaxArtistDeleteSuccess = function () {
+            console.log("Delete Success!");
+            stark.services.notifications.success('You deleted this artist!');
+            var deleteId = stark.page.deleteId;
+            $(".wishTemplateLanding").find("#" + deleteId).remove();
+        };
+
+
+        stark.page.handlers.deleteWish = function (event) {
+            event.preventDefault();
+            stark.services.notifications.confirm('Are you sure you want to delete this artist?', stark.page.handlers.deleteWishConfim);
+            var deleteId = $(this).closest(".general").data("wishId");
+            stark.page.deleteId = deleteId;
+        };
+
+        stark.page.handlers.deleteWishConfim = function () {
+            stark.services.wishes.delete(stark.page.deleteId, stark.page.handlers.ajaxArtistDeleteSuccess, stark.page.handlers.ajaxError);
+        };
+    </script>
+}

@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "Create Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<article class="article gradient-2">
+    <h2 class="title container text-center">Welcome to WanderLust</h2>
+    <section class="form-section text-center">
+        <div class="section-inner container">
+            <div class="row">
+
+                <!-- wish Form -->
+                <div class="form-container col-md-10 col-sm-12 col-xs-12 col-md-push-1 col-sm-push-0 col-xs-push-0" ng-controller="mainController as main">
+
+                    <form name="main.wishForm" novalidate>
+                        <div class="contact-form-inner">
+                            <h3 class="subtitle">Create a New Wish</h3>
+                            <div class="row">
+
+                                <!-- Wish UserId -->
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.userId.$invalid && main.wishForm.$submitted}">
+                                        User Id:
+                                        <input required ng-model="main.userId" type="text" name="UserId" class="form-control" placeholder="User Id" autofocus>
+                                            <p ng-show="main.wishForm.userId.$error.required && main.wishForm.$submitted" class="help-block">UserId is required</p>
+                                </div>
+
+                                <!-- Wish Location -->
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishLocation.$invalid && main.wishForm.$submitted}">
+                                        Wish Location:
+                                        <input required ng-model="main.wishLocation" type="text" name="wishLocation" class="form-control" placeholder="Wish Title">
+                                            <p ng-show="main.wishForm.wishLocation.$error.required && main.wishForm.$submitted" class="help-block">Wish Location is required</p>
+                                </div>
+
+                                <!-- wish Activity-->
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishActivity.$invalid && main.wishForm.$submitted}">
+                                        Wish Activity:
+                                        <input required ng-model="main.wishActivity" type="text" name="wishActivity" class="form-control" placeholder="Wish Activity">
+                                            <p ng-show="main.wishForm.wishActivity.$error.required && main.wishForm.$submitted" class="help-block">User Activity is required</p>
+                                </div>
+
+                                <!-- wish ImageURL-->
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group" ng-class="{'has-error' : main.wishForm.wishImageUrl.$invalid && main.wishForm.$submitted}">
+                                        Wish Image:
+                                        <input required ng-model="main.wishImageUrl" type="text" name="wishImageUrl" class="form-control" placeholder="Wish Image URL">
+                                            <p ng-show="main.wishForm.wishImageUrl.$error.required && main.wishForm.$submitted" class="help-block">An URL for your image is required.</p>
+                                </div>
+
+                                <!-- SUBMIT BUTTON -->
+                                <div class="col-md-6 col-sm-6 col-xs-6 form-group">
+                                    <!--Submit button will only work when wishForm's validation is satisfied, or when all inputs that have required condition inside them is met, ng-disabled directive disables the submit button until wishForm is valid as an added precaution-->
+                                    <button ng-click="main.submitwishForm(main.wishForm.$valid)" type="submit" class="btn btn-block btn-cta btn-cta-primary">Submit Your Wish</button>
+                                </div>
+                            </div><!--//row-->
+                        </div>
+                    </form><!--//contact-form-->
+                </div><!--//form-container-->
+            </div><!--//row-->
+        </div><!--//section-inner-->
+    </section><!--//promo-section-->
+</article>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function () {
+            "use strict";
+
+            angular.module(wanderLustApp)      //APPNAME replaced with wanderLustApp
+                .controller('mainController', MainController);
+
+            MainController.$inject = ['$scope', '$baseController', 'notificationsService', 'wishesService', 'appConfig'];
+
+            function MainController($scope, $baseController, wishesService, notificationsService, appConfig) {
+
+                var vm = this;
+                vm.fileUpload = null;
+
+                vm.notificationsService = notificationsService;
+                vm.wishesService = wishesService;
+                vm.$scope = $scope;
+                //on submission this function should execute
+                vm.createwish = _createwish;
+                vm.onFileUploadCreateSuccess = _onFileUploadCreateSuccess;
+                vm.uploadsService = uploadsService;
+                vm.onCreatewishError = _onCreatewishError;
+                vm.onCreatewishSuccess = _onCreatewishSuccess;
+                vm.locationId = appConfig.locationId;
+                vm.readwishForm = readwishForm;
+                vm.data = null;
+                //vm.wishData = wishData;
+                vm.wishImageUrl = null;
+                vm.submitwishForm = _submitwishForm;
+
+                //FORM inputs
+                vm.UserId = null;
+                vm.wishLocation = null;
+                vm.wishActivity = null;
+                vm.
+
+                //watches for the on click, execute the _render function
+                //$scope.$on('$includeContentLoaded', _render);
+                //$scope.$on('fileUpload.urlAvailable', _urlReceived);
+
+                $baseController.merge(vm, $baseController);
+
+                _render();
+
+                //1. RENDER FORM
+                function _render() {
+                    //show page started up
+                    vm.$log.log('Page started Up');
+                    //show the the default fileupload prior to the user uploading
+
+                    vm.$log.log(appConfig);
+
+                    //in render add if check
+                    if (appConfig.wishId == null) {
+                        vm.$log.log("This is no appConfig value, send to what URL page?");
+
+                        vm.wishId = appConfig.item;
+                    }
+
+                    else {
+                        vm.$log.log("There is a value, we hit /admin/wishs/{id}/edit, now what?");
+
+                        //get by id function w/ success and error
+                        vm.wishesService.getById(vm.data, _onGetwishSuccess, _onGetwishError);
+                    }
+                }
+
+                // 1a. SUBMIT wish FORM - Verifies that form is valid
+                function _submitwishForm(isValid) {
+                    if (isValid) {
+                        vm.createwish();
+                    }
+
+                    else {
+                        vm.$log.log('invalid wish data');
+                    }
+                }
+
+                //2. READ FORM
+                //create variable that contains the data from form(wishForm), CREATE vm.wishData
+                function readwishForm() {
+                    if (vm.wishForm.$valid) {
+                        if (vm.wishId == null) {
+                            vm.wishData = {
+                                Title: vm.wishTitle
+                                , Activity: vm.wishActivity
+                                , Clue: vm.wishClue
+                                , locationId: appConfig.locationId
+                                , ImageUrl: vm.wishImageUrl
+                                //, wishImageUrl: wishImageUrl.url
+                            }
+                        }
+                        else {
+                            //pre-populate form if wishId exists.
+                            //if(vm.wishId != null)
+                        }
+                        return vm.wishData;
+                    }
+                }
+
+                //3. createwish function
+                function _createwish() {
+                    //immediate validation for picture upload, change to on submission check for if(vm.wishImageUrl == null)
+                    if (vm.wishImageUrl == null) {
+                        vm.notificationsService.error('No image file was selected');
+                        vm.$log.log("error, wishImageUrl is null");
+                    } else {
+                        //if the wishForm is valid and the wishImageUrl is not undefined
+                        if (vm.wishForm.$valid && vm.wishImageUrl) {
+                            vm.notificationsService.success('turning wishImageUrl to vm.fileUpload');
+                            vm.$log.log('success, turning wishImageUrl to vm.fileUpload');
+                            vm.fileUpload = vm.wishImageUrl;
+
+                            if (vm.fileUpload != null) {
+                                vm.notificationsService.success('You uploaded an image!');
+                                vm.$log.log('success,fileUpload value exists');
+                            }
+                            //read & create the wish
+                            _onFileUploadCreateSuccess()
+                            //vm.uploadsService.create(vm.fileUpload, _onFileUploadCreateSuccess, _onFileUploadCreateError);
+
+                        } else {
+                            vm.$log.log('invalid form data');
+                        }
+                    }
+                };
+
+                //4. onFileUploadCreateSuccess function to create an wish after the success of the file upload
+                //function _onFileUploadCreateSuccess(response) {
+                function _onFileUploadCreateSuccess() {
+                    // create var called imageUrlUpload set to response.item.
+                    //vm.wishImageUrlUpload = response.item;
+
+                    vm.data = vm.readwishForm();
+                    vm.data.locationId = appConfig.locationId;
+                    //vm.data.wishImageUrl = response.item;
+                    vm.notificationsService.success("Your wish was sent!");
+                    vm.wishesService.create(vm.data, _onCreatewishSuccess, _onCreatewishError);
+                }
+
+                //6. on create wish success...
+                function _onCreatewishSuccess(response) {
+                    vm.$log.log("Success!");
+                    vm.locationId = appConfig.locationId;
+                    if (vm.locationId != null) {
+                        vm.locationId = appConfig.locationId;
+                    }
+                    vm.notificationsService.redirectDialog('/admin/wishs/create?locationId=' + vm.locationId, 'You have created a new wish.');
+                };
+
+                //7. on create wish error...
+                function _onCreatewishError(response) {
+                    vm.$log.log("Error");
+                    vm.notificationsService.error('There was an error creating the wish.');
+                };
+
+                //8. onGetByIdSuccess...
+                function _onGetwishSuccess(response) {
+                    if (response.item == null) {
+                        vm.notificationsService.error("I'm sorry, wish doesn't exist, you'll have to create an wish.");
+                    }
+                    vm.$log.log("getById Success!");
+                    vm.$log.log(response.item);
+
+                    //POPULATE FORM
+                    vm.wishTitle = response.item.Title;
+                    vm.wishArtistId = response.item.ArtistId;
+                    vm.wishActivity = response.item.Activity;
+                    vm.wishClue = response.item.Clue;
+                    vm.wishPointValue = response.item.PointValue;
+                    vm.wishFunFact = response.item.FunFact;
+                    vm.wishReadMore = response.item.ReadMore;
+                    vm.wishImageUrl = response.item.ImageUrl;
+                    vm.$log.log("Got wish info");
+
+                    //Set locationId
+                    //1. first initialize the locationID to response.item.locationId
+                    vm.locationId = response.item.locationId;
+
+                    //2. Then invoke the getById method from locationsService object, passing in the int locationId and success and error callback functions
+                    //vm.locationsServices.getById(vm.locationId, _onGetLocationSucces, _onGetLocationError)
+                };
+
+
+
+                //9. on getById wish error...
+                function _onGetwishError(response) {
+                    vm.$log.log("getById Error!");
+                };
+            }
+        })();
+    </script>
+}
