@@ -4,9 +4,6 @@
 
 @section styles {
 <style type="text/css">
-.body-content {
-    background-image: url('https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=0ahUKEwjigITalIfWAhWng1QKHQSNASkQjBwIBA&url=https%3A%2F%2Fmomentumdash.com%2Fblog%2Fimages%2Fbackground-and-quote-sync.jpg&psig=AFQjCNHagq0hG-yH7nN1el0xq34kJ7WfDg&ust=1504464372491596');
-}
 
 button {
     color: white;
@@ -16,8 +13,7 @@ button {
     position: relative;
     margin: 0 auto;
     letter-spacing: 4px;
-    margin-left: 45%;
-    
+    margin-left: 45%;  
 }
 
 div.form-container {
@@ -28,6 +24,23 @@ div.form-container {
 
 form {
     height: 675px;
+    margin-top: 75px;
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
 }
 </style>
 }
@@ -95,8 +108,8 @@ form {
 
 @section scripts
 {
-    <script src="~/Scripts/trux/services/trux.services.uploads.js"></script>
-    <script src="~/Scripts/trux/services/trux.services.wishes.js"></script>
+    @*<script src="~/Scripts/trux/services/trux.services.uploads.js"></script>
+    <script src="~/Scripts/trux/services/trux.services.wishes.js"></script>*@
     <script type="text/javascript">
         (function () {
             "use strict";
@@ -107,7 +120,6 @@ form {
             MainController.$inject = ['$scope', '$baseController', 'notificationsService', 'wishesService', 'appConfig'];
 
             function MainController($scope, $baseController, wishesService, notificationsService, appConfig) {
-
                 var vm = this;
                 vm.fileUpload = null;
 
@@ -123,6 +135,7 @@ form {
                 vm.locationId = appConfig.locationId;
                 vm.readwishForm = readwishForm;
                 vm.data = null;
+            
                 //vm.wishData = wishData;
                 vm.wishImageUrl = null;
                 vm.submitwishForm = _submitwishForm;
@@ -131,7 +144,7 @@ form {
                 vm.UserId = null;
                 vm.wishLocation = null;
                 vm.wishActivity = null;
-                vm.
+                
 
                 //watches for the on click, execute the _render function
                 //$scope.$on('$includeContentLoaded', _render);
@@ -145,8 +158,8 @@ form {
                 function _render() {
                     //show page started up
                     vm.$log.log('Page started Up');
-                    //show the the default fileupload prior to the user uploading
 
+                    //show the the default fileupload prior to the user uploading
                     vm.$log.log(appConfig);
 
                     //in render add if check
@@ -157,7 +170,7 @@ form {
                     }
 
                     else {
-                        vm.$log.log("There is a value, we hit /admin/wishs/{id}/edit, now what?");
+                        vm.$log.log("There is a value, we hit /admin/wishes/{id}/edit, now what?");
 
                         //get by id function w/ success and error
                         vm.wishesService.getById(vm.data, _onGetwishSuccess, _onGetwishError);
@@ -179,12 +192,10 @@ form {
                 //create variable that contains the data from form(wishForm), CREATE vm.wishData
                 function readwishForm() {
                     if (vm.wishForm.$valid) {
-                        if (vm.wishId == null) {
+                        if (vm.wishId == null) { //what is wishId? is this userId
                             vm.wishData = {
-                                Title: vm.wishTitle
+                                LocationId: appConfig.locationId
                                 , Activity: vm.wishActivity
-                                , Clue: vm.wishClue
-                                , locationId: appConfig.locationId
                                 , ImageUrl: vm.wishImageUrl
                                 //, wishImageUrl: wishImageUrl.url
                             }
