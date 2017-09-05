@@ -17,7 +17,6 @@ button {
 }
 
 div.form-container {
-    background-color: red;
     background-image: url('https://i.pinimg.com/736x/56/20/36/56203618eb0123d1a04b9b640d2195cd--travel-abroad-travel-bug.jpg');
     border: 0.5px solid black;
 }
@@ -255,7 +254,7 @@ form {
                     if (vm.locationId != null) {
                         vm.locationId = appConfig.locationId;
                     }
-                    vm.notificationsService.redirectDialog('/admin/wishs/create?locationId=' + vm.locationId, 'You have created a new wish.');
+                    //vm.notificationsService.redirectDialog('/admin/wishs/create?locationId=' + vm.locationId, 'You have created a new wish.');
                 };
 
                 //7. on create wish error...
@@ -287,7 +286,6 @@ form {
                     //2. Then invoke the getById method from locationsService object, passing in the int locationId and success and error callback functions
                     //vm.locationsServices.getById(vm.locationId, _onGetLocationSucces, _onGetLocationError)
                 };
-
 
 
                 //9. on getById wish error...

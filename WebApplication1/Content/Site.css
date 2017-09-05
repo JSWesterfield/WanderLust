@@ -20,5 +20,11 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 300px;
+}
+
+#navLogin {
+    float: right;
+    background-color: blue;
+    color: red;
 }
