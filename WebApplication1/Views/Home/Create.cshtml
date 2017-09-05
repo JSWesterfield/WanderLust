@@ -94,7 +94,7 @@ form {
                                 <!-- SUBMIT BUTTON -->
                                 <div class="col-md-6 col-sm-6 col-xs-6 form-group" id="createButton">
                                     <!--Submit button will only work when wishForm's validation is satisfied, or when all inputs that have required condition inside them is met, ng-disabled directive disables the submit button until wishForm is valid as an added precaution-->
-                                    <button ng-click="main.submitwishForm(main.wishForm.$valid)" type="submit" class="btn btn-block btn-cta btn-cta-primary">Submit Your Wish</button>
+                                    <button ng-click="main.submitWishForm(main.wishForm.$valid)" type="submit" class="btn btn-block btn-cta btn-cta-primary">Submit Your Wish</button>
                                 </div>
                             </div><!--//row-->
                         </div>
@@ -137,7 +137,7 @@ form {
             
                 //vm.wishData = wishData;
                 vm.wishImageUrl = null;
-                vm.submitwishForm = _submitwishForm;
+                vm.submitWishForm = _submitWishForm;
 
                 //FORM inputs
                 vm.UserId = null;
@@ -177,7 +177,7 @@ form {
                 }
 
                 // 1a. SUBMIT wish FORM - Verifies that form is valid
-                function _submitwishForm(isValid) {
+                function _submitWishForm(isValid) {
                     if (isValid) {
                         vm.createwish();
                     }

@@ -28,7 +28,7 @@ namespace WikiWebStarter.Example.Services
    
 
         //INSERT
-        public int Insert(Wish p)
+        public int Insert(Wish w)
         {
             int i = 0;
             DataProvider.ExecuteNonQuery(
@@ -36,9 +36,9 @@ namespace WikiWebStarter.Example.Services
                 "WanderLustFeature_Insert",
                 inputParamMapper: delegate (SqlParameterCollection paramCollection)
                 {
-                    paramCollection.AddWithValue("@UserId", p.UserId);
-                    paramCollection.AddWithValue("@Location", p.Location);
-                    paramCollection.AddWithValue("@Activity", p.Activity);
+                    paramCollection.AddWithValue("@UserId", w.UserId);
+                    paramCollection.AddWithValue("@Location", w.Location);
+                    paramCollection.AddWithValue("@Activity", w.Activity);
 
                     SqlParameter parm = new SqlParameter("@Id", SqlDbType.Int);
                     parm.Direction = ParameterDirection.Output;
