@@ -12,33 +12,28 @@ namespace WebApplication1.Controllers
         [Route("~/index")]
         public ActionResult Index()
         {
-
             return View();
-
         }
+
 
         [Route("~/about")]
         public ActionResult About()
         {
-
             return View();
-
         }
+
 
         [Route("~/contact")]
         public ActionResult Contact()
         {
-
             return View();
-
         }
+
 
         [Route("~/create")]
         public ActionResult Create()
         {
-
             return View();
-
         }
     }
 }
