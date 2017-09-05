@@ -8,7 +8,7 @@ namespace WebApplication1.Models.Requests
 {
     public class WishUpdateRequest : WishCreateRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Id is required")]
         public int Id { get; set; }
     }
 }
