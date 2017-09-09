@@ -226,7 +226,13 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Requests\WishCreateRequest.cs" />
+    <Compile Include="Models\Requests\WishUpdateRequest.cs" />
+    <Compile Include="Models\Responses\BaseResponse.cs" />
+    <Compile Include="Models\Responses\ErrorResponse.cs" />
+    <Compile Include="Models\Responses\SuccessResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IWishesService.cs" />
     <Compile Include="Services\WishesService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1054,6 +1060,7 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\trux\services\base.service.js" />
     <Content Include="Scripts\trux\services\systemEvent.service.js" />
+    <Content Include="Scripts\trux\services\trux.services.wish.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1096,14 +1103,12 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Scripts\trux\services\alert.service.js" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Scripts\trux\services\trux.services.notifications.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Requests\" />
-    <Folder Include="Models\Responses\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Scripts\trux\core\controllers\" />
-    <Folder Include="Views\WishList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
