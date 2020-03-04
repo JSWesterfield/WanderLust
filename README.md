@@ -1,5 +1,5 @@
-# WanderLust
-Your location based Bucketlist. "I'm in New York? Oh, I'm 2.5Miles from ONE of my bucketlist items I have stored!"
+# WanderLust💠 
+💠 Your location based Bucketlist. "I'm in New York? Oh, I'm 2.5Miles from ONE of my bucketlist items I have stored!"
 
 # Future development
 Entire Interface <br />
